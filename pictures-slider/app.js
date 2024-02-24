@@ -7,7 +7,14 @@ const downBtn = document.querySelector('.down-button');
 const sidebar = document.querySelector('.sidebar');
 const container = document.querySelector('.container');
 
-let activeSlideIndex = 0;
+let activeSlideIndex;
+
+let activeSlide = mainSlide.querySelector('.active');
+let mainSlides = mainSlide.querySelectorAll('div');
+
+for (let i = 0; i < mainSlides.length; i++) {
+    mainSlides[i].classList.contains('active') === true ? activeSlideIndex = i : activeSlideIndex = 0;
+}
 
 sidebar.style.top = `-${(slidesCount - 1) * 100}vh`;
 
@@ -18,6 +25,15 @@ upBtn.addEventListener('click', () => {
 downBtn.addEventListener('click', () => {
     changesSlides('down');
 });
+
+document.addEventListener('keydown',
+    event => {
+        if (event.key === 'ArrowUp') {
+            changesSlides('up');
+        } else if (event.key === 'ArrowDown') {
+            changesSlides('down');
+        }
+    });
 
 function changesSlides(direction) {
     if (direction === 'up') {
